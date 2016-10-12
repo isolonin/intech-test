@@ -6,18 +6,15 @@
       xmlns:p="http://primefaces.org/ui">
     <ui:composition template="../template.xhtml">
         <ui:define name="meta">
-            <title>Раздел помощь</title>
+            <title>Небывалые возможности</title>
         </ui:define>
         
         <ui:define name="main">
             <h:form class="uk-text-center">
-                <p:growl id="msg" escape="false"/>
-                <p:hotkey bind="1" action="capabilities?faces-redirect=true"/>
-                <p:hotkey bind="2" action="costs?faces-redirect=true"/>
                 <p:hotkey bind="*" action="home?faces-redirect=true"/>
-                
-                <h1>Раздел помощь</h1>
-                <p>Для получения информации о возможностях услуги нажмите 1, для того чтобы узнать стоимость нажмите 2</p>
+                <p:hotkey bind="#" action="info?faces-redirect=true"/>
+                <h1>Небывалые возможности</h1>
+                <p>Сервис позволяет прослушать контент и купить его!!! Выход в основное меню - *, # - вернуться в предыдущее меню</p>
             </h:form>
         </ui:define>
     </ui:composition>

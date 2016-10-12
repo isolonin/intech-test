@@ -1,0 +1,26 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="../template.xhtml">
+        <ui:define name="meta">
+            <title>Всё по сотке</title>
+        </ui:define>
+        
+        <ui:define name="main">
+            <h:form class="uk-text-center">
+                <p:growl id="msg" escape="false" widgetVar="msg"/>
+                <p:hotkey bind="1" update="msg" oncomplete="PF('msg').renderMessage({'summary':'Ай-яй-яй',
+                             'detail':'В ТЗ описание есть, а что этот пункт делает - описания нет',
+                             'severity':'warn'})"/>
+                <p:hotkey bind="*" action="home?faces-redirect=true"/>
+                <p:hotkey bind="#" action="info?faces-redirect=true"/>
+                <h1>Всё по сотке</h1>
+                <p>Весь контент стоит 100 рублей. для выхода в меню информации об услуге - 1, в основное меню - *, # - вернуться в предыдущее меню</p>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+
