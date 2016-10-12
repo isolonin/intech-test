@@ -6,7 +6,9 @@ package ru.intech.test.controllers;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -29,11 +31,33 @@ public class UserMenu {
         Global.showMessage(FacesMessage.SEVERITY_INFO, message, "");
     }
     
+    public void removeMusic(){
+        try{
+            Users user = global.getCurrentSessionUser();
+            if(user != null){
+                Collection<Melodies> melodies = user.getMelodiesCollection();
+                if(melodies == null || melodies.isEmpty()){
+                    Global.showMessage(FacesMessage.SEVERITY_INFO, "У Вас больше не осталось мелодий", "");
+                }else {
+                    Iterator<Melodies> iterator = melodies.iterator();
+                    Melodies melodie = iterator.next();                    
+                    String name = melodie.getName();
+                    melodiesFacade.remove(melodie);                    
+                    iterator.remove();
+                    
+                    Global.showMessage(FacesMessage.SEVERITY_INFO, "Мелодия от "+name+" удалена", "");
+                }
+            }
+        }catch (Exception ex){
+            Global.showMessage(FacesMessage.SEVERITY_ERROR, Global.INTERNAL_ERROR, "");
+        }        
+    }
+    
     public void saveMusic(){
         try{
             Users user = global.getCurrentSessionUser();
             if(user != null){
-                DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
                 Melodies melodie = new Melodies();
                 melodie.setUserId(user);
@@ -47,7 +71,7 @@ public class UserMenu {
                 Global.showMessage(FacesMessage.SEVERITY_INFO, "Мелодия успешно сохранена", "");
             }
         }catch (Exception ex){
-            Global.showMessage(FacesMessage.SEVERITY_ERROR, Global.INTERNAL_ERROR, "");
+            Global.showMessage(FacesMessage.SEVERITY_ERROR, "Не нужно так часто нажимать, а то логи все в эксепшинах будут :)", "");
         }        
     }
 }

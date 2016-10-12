@@ -10,7 +10,15 @@
         </ui:define>
         
         <ui:define name="main">
-            content
+            <h:form class="uk-text-center">
+                <p:growl id="msg" escape="false"/>
+                <p:hotkey bind="1" update="msg" actionListener="#{userMenu.playMusic()}"/>
+                <p:hotkey bind="2" update="msg" actionListener="#{userMenu.removeMusic()}"/>
+                <p:hotkey bind="*" action="home?faces-redirect=true"/>
+                
+                <h1>Меню управления личным кабинетом</h1>
+                <p>Вы находитесь в меню управления услугой и редактирования персональной фонотеки.   При проигрывании мелодии нажмите 1 для перехода к следующей, 2 – для удаления данной мелодии. Для выхода в основное меню – нажмите *.</p>
+            </h:form>
         </ui:define>
     </ui:composition>
 </html>

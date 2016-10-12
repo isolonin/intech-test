@@ -14,6 +14,7 @@ import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -46,6 +47,7 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Users implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    @OrderBy("id DESC")
     private Collection<Melodies> melodiesCollection;
     private static final long serialVersionUID = 1L;
     @Id
