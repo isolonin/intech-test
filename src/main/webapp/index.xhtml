@@ -1,0 +1,38 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="./template.xhtml">
+        <ui:define name="meta">
+            <title>Идентификация</title>
+        </ui:define>
+        
+        <ui:define name="main">
+            <h:form id="form">
+                <p:focus for="input-ident"/>
+                <p:defaultCommand target="login-button"/>
+                <div class="uk-flex uk-flex-middle uk-flex-center uk-height-viewport">
+                    <p:panel id="panel" class="uk-grid uk-width-1-5" rendered="#{global.currentSessionUser == null}">
+                        <div class="uk-width-1-1">
+                            <p>Введите идентификационный код</p>
+                        </div>
+                        <div class="uk-width-1-1 uk-margin-top">
+                            <p:messages id="ident-mess"/>
+                            <p:inputText id="input-ident"
+                                         value="#{login.ident}" 
+                                        class="uk-width-1-1"
+                                        required="true" requiredMessage="Необходимо указать идентификатор"/>
+                        </div>
+                        <div class="uk-width-1-1 uk-margin-top uk-text-right">
+                            <p:commandButton id="login-button" value="OK" update="ident-mess"
+                                             actionListener="#{login.check()}"/>
+                        </div>
+                    </p:panel>
+                </div>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+

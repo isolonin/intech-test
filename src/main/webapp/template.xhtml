@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <!--Шаблон для всех страниц сайта-->
+    <h:head>
+        <meta charset="utf-8"/>
+        <h:outputStylesheet library="css" name="uikit.css"/>
+        <h:outputScript library="js" name="uikit.js"/>
+        
+        <ui:insert name="meta">
+        </ui:insert>
+    </h:head>
+
+    <h:body>
+        <div class="uk-container uk-container-center">
+            <!--headers-->
+            <ui:insert name="header">
+                <ui:include src="total-menu.xhtml"/>
+            </ui:insert>                    
+
+            <!--main-->
+            <div class="uk-flex uk-flex-middle uk-flex-center uk-height-viewport">
+                <ui:insert name="main">
+                    Hello INTECH
+                </ui:insert>
+            </div>
+
+            <!--footer-->
+            <ui:insert name="footer">
+                <ui:include src="footer.xhtml"/>
+            </ui:insert>
+        </div>
+    </h:body>
+
+</html>

@@ -4,30 +4,42 @@
 package ru.intech.test.dbobjects;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
+import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
-/**
- *
- * @author ivan
- */
 @Entity
 @Table(name = "users")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u"),
-    @NamedQuery(name = "Users.findById", query = "SELECT u FROM Users u WHERE u.id = :id"),
-    @NamedQuery(name = "Users.findByMsisdn", query = "SELECT u FROM Users u WHERE u.msisdn = :msisdn")})
-public class Users implements Serializable {
+//@NamedQueries({
+//    @NamedQuery(name = "Users.findAll", query = "SELECT u FROM Users u"),
+//    @NamedQuery(name = "Users.findById", query = "SELECT u FROM Users u WHERE u.id = :id"),
+//    @NamedQuery(name = "Users.findByMsisdn", query = "SELECT u FROM Users u WHERE u.msisdn = :msisdn")})
 
+// ТЗ гласит, что мы любин нативные запросы, так что, любезно сгенерированный Netbeans'ом, JPQL уходит в комменты
+// А вместо него добавляется аннотация позволяющая не конвертировать Object'ы, полученные посредством getResultList, в нужный класс
+@SqlResultSetMapping (
+    name="CustomerDetailsResult",
+    classes={
+       @ConstructorResult(targetClass=ru.intech.test.dbobjects.Users.class,
+            columns={
+                @ColumnResult(name="id"),
+                @ColumnResult(name="msisdn")
+            }
+       )
+    }
+)
+public class Users implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -39,6 +51,14 @@ public class Users implements Serializable {
     @Size(min = 1, max = 11)
     @Column(name = "msisdn")
     private String msisdn;
+    
+    @Transient
+    //Тут будет храниться время начала сессии
+    private Date lastTimeSessionActive;
+    
+    @Transient
+    //Идентификатор сессии
+    private String uuid;
 
     public Users() {
     }
@@ -77,7 +97,6 @@ public class Users implements Serializable {
 
     @Override
     public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
         if (!(object instanceof Users)) {
             return false;
         }
@@ -91,6 +110,22 @@ public class Users implements Serializable {
     @Override
     public String toString() {
         return "ru.intech.test.dbobjects.Users[ id=" + id + " ]";
+    }
+
+    public Date getLastTimeSessionActive() {
+        return lastTimeSessionActive;
+    }
+
+    public void setLastTimeSessionActive(Date lastTimeSessionActive) {
+        this.lastTimeSessionActive = lastTimeSessionActive;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
     
 }
