@@ -33,7 +33,13 @@ public class Login {
         }
     }
     
-    public void check(){        
+    public void check(){
+        //Если пользователь уже залогинен
+        if(global.getCurrentSessionUser() != null){
+            //Переходим в домашную директорию
+            redirect("root/home.do");
+        }
+        
         //Дабы не привязываться к настройкам безопасности на стороне сервера приложений аутентификация и авторизация реализуется на стороне приложения
         List<Users> users = usersFacade.findAll();
         if(users != null && ident != null && ident.isEmpty() == false){

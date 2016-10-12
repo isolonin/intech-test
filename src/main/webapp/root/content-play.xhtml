@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui">
+    <p:growl id="msg" escape="false"/>
+    <p:hotkey bind="1" update="msg" actionListener="#{userMenu.playMusic()}"/>
+    <p:hotkey bind="2" update="msg" actionListener="#{userMenu.saveMusic()}"/>
+    <p:hotkey bind="*" action="home?faces-redirect=true"/>
+    <p:hotkey bind="#" action="content?faces-redirect=true"/>
+    <p>Прослушивание осуществляется в непрерывном порядке. При проигрывании мелодии нажмите 1 для перехода к следующей, 2 – для покупки данной мелодии. Для выхода в основное меню – нажмите *.   Для выхода в предыдущее меню - #</p>
+</html>
+

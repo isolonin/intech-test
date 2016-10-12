@@ -4,19 +4,23 @@
 package ru.intech.test.dbobjects;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.ColumnResult;
 import javax.persistence.ConstructorResult;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name = "users")
@@ -29,7 +33,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 // ТЗ гласит, что мы любин нативные запросы, так что, любезно сгенерированный Netbeans'ом, JPQL уходит в комменты
 // А вместо него добавляется аннотация позволяющая не конвертировать Object'ы, полученные посредством getResultList, в нужный класс
 @SqlResultSetMapping (
-    name="CustomerDetailsResult",
+    name="usersMap",
     classes={
        @ConstructorResult(targetClass=ru.intech.test.dbobjects.Users.class,
             columns={
@@ -40,6 +44,9 @@ import javax.xml.bind.annotation.XmlRootElement;
     }
 )
 public class Users implements Serializable {
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
+    private Collection<Melodies> melodiesCollection;
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -126,6 +133,15 @@ public class Users implements Serializable {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    @XmlTransient
+    public Collection<Melodies> getMelodiesCollection() {
+        return melodiesCollection;
+    }
+
+    public void setMelodiesCollection(Collection<Melodies> melodiesCollection) {
+        this.melodiesCollection = melodiesCollection;
     }
     
 }

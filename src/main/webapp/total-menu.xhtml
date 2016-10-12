@@ -5,7 +5,10 @@
       xmlns:p="http://primefaces.org/ui">
     <p:panel rendered="#{global.currentSessionUser != null}" class="uk-text-right">
         <h:form>
-            <p:commandLink value="Выход" actionListener="#{login.Loguot()}"/>
+            <ul class="uk-breadcrumb">
+                <li><p:commandLink value="Личный кабинет" action="root/home?faces-redirect=true"/></li>
+                <li><p:commandLink value="Выход" actionListener="#{login.Loguot()}"/></li>
+            </ul>
         </h:form>
     </p:panel>
 </html>
