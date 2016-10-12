@@ -1,0 +1,7 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}Code author Solonin Ivan (osmos_two@rambler.ru)
+<#if licenseLast??>
+${licenseLast}
+</#if>
